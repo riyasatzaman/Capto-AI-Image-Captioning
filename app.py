@@ -42,15 +42,15 @@ def home():
 
 @app.route("/about")
 def about():
-    return "<h1>About Capto</h1><p>Capto is an AI-powered image captioning tool designed to generate creative and accurate captions for your images.</p>"
+    return render_template("about.html")
 
 @app.route("/updates")
 def updates():
-    return "<h1>Updates</h1><p>Stay tuned for the latest features and improvements in Capto.</p>"
+    return render_template("updates.html")
 
 @app.route("/contact")
 def contact():
-    return "<h1>Contact Us</h1><p>For inquiries, reach out to us at support@capto.com</p>"
+    return render_template("contact.html")
 
 if __name__ == "__main__":
     app.run(debug=True)

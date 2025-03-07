@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Updates - Capto</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --card-bg: white;
+            --text-color: #212529;
+            --text-secondary: #6c757d;
+            --nav-bg: #f8f9fa;
+            --nav-bg-rgb: 248, 249, 250;
+            --button-bg: #0d6efd;
+            --gradient-start: #f8f9ff;
+            --gradient-mid: #f0f2ff;
+            --gradient-end: #eef5ff;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #212529;
+            --card-bg: #343a40;
+            --text-color: #f8f9fa;
+            --text-secondary: #adb5bd;
+            --nav-bg: #333;
+            --nav-bg-rgb: 51, 51, 51;
+            --gradient-start: #1a1d21;
+            --gradient-mid: #1e2227;
+            --gradient-end: #1c2026;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, 
+                var(--gradient-start) 0%, 
+                var(--gradient-mid) 50%, 
+                var(--gradient-end) 100%);
+            color: var(--text-color);
+            min-height: 100vh;
+            margin: 0;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar {
+            background-color: rgba(var(--nav-bg-rgb), 0.8) !important;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 0.8rem 0;
+            border: none;
+        }
+
+        .navbar-nav {
+            border: none;
+        }
+
+        .nav-item {
+            border: none;
+        }
+
+        .navbar-brand, .nav-link {
+            color: var(--text-color) !important;
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 1rem;
+            transition: color 0.3s ease;
+            border: none;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: var(--button-bg);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::after {
+            width: 80%;
+        }
+
+        @media (max-width: 991px) {
+            .navbar-collapse {
+                background-color: var(--nav-bg);
+                padding: 1rem;
+                border-radius: 8px;
+                margin-top: 0.5rem;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            }
+            .nav-link::after {
+                left: 0;
+                transform: none;
+            }
+            .nav-link:hover::after {
+                width: 100%;
+            }
+        }
+
+        #theme-toggle-btn {
+            border: none;
+            background: none;
+            color: var(--text-color);
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .main-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            color: var(--text-color);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            color: var(--text-secondary);
+            padding: 1rem;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        li:last-child {
+            border-bottom: none;
+        }
+
+        [data-theme="dark"] li {
+            border-bottom-color: rgba(255,255,255,0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="/home">Capto</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/updates">Updates</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+                </ul>
+            </div>
+            <button id="theme-toggle-btn">☀️ Light Mode</button>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <h1>Capto Updates</h1>
+        <ul>
+            <li>Version 1.2 - Added multiple caption styles and dark mode toggle</li>
+            <li>Version 1.1 - Improved caption accuracy and speed</li>
+            <li>Version 1.0 - Initial release</li>
+        </ul>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeToggleBtn = document.getElementById('theme-toggle-btn');
+            const htmlElement = document.documentElement;
+
+            const savedTheme = localStorage.getItem('theme') || "light";
+            htmlElement.setAttribute('data-theme', savedTheme);
+            themeToggleBtn.innerHTML = savedTheme === 'dark' ? '🌙 Dark Mode' : '☀️ Light Mode';
+
+            themeToggleBtn.addEventListener('click', function() {
+                const currentTheme = htmlElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+                htmlElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                themeToggleBtn.innerHTML = newTheme === 'dark' ? '🌙 Dark Mode' : '☀️ Light Mode';
+            });
+        });
+    </script>
+</body>
+</html>

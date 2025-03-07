@@ -348,34 +348,34 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh; /* Full viewport height */
+            height: 100vh;
             text-align: center;
-            padding: 40px 20px;
+            padding: 60px 20px;
             background: url("https://source.unsplash.com/1600x900/?technology,ai") no-repeat center center/cover;
-            margin-bottom: 0; /* Remove bottom margin */
+            margin-bottom: 0;
         }
         .hero h1 {
-            font-size: 3rem;
+            font-size: 4rem;
             font-weight: 700;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             color: var(--text-color);
             text-shadow: 1px 1px 4px rgba(0,0,0,0.2);
         }
         .hero p {
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin-bottom: 2rem;
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin-bottom: 2.5rem;
             color: var(--text-color);
             text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
         }
         .hero .btn {
             border-radius: 50px;
-            padding: 8px 24px;
-            font-size: 1rem;
+            padding: 12px 32px;
+            font-size: 1.2rem;
             background-color: var(--button-bg);
             color: var(--button-text);
             border: none;
-            margin-right: 10px;
+            margin-right: 15px;
             transition: all 0.3s ease;
         }
         .hero .btn-outline-light {
@@ -386,6 +386,114 @@
         .hero .btn-outline-light:hover {
             background-color: var(--button-bg);
             color: var(--button-text);
+        }
+
+        /* Benefits Section Styles */
+        .benefits-section {
+            padding: 120px 20px;
+            background: var(--bg-color);
+            position: relative;
+            z-index: 1;
+        }
+
+        .benefits-section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-color);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .benefits-section > p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            color: var(--text-secondary);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            max-width: 1200px;
+            margin: 60px auto 0;
+            padding: 0 20px;
+        }
+
+        .benefit-card {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .benefit-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--button-bg), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(var(--nav-bg-rgb), 0.1);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        }
+
+        .benefit-card:hover::before {
+            opacity: 1;
+        }
+
+        .benefit-icon {
+            margin-bottom: 20px;
+            color: var(--button-bg);
+            display: inline-block;
+            padding: 12px;
+            background: rgba(var(--nav-bg-rgb), 0.1);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .benefit-card:hover .benefit-icon {
+            transform: scale(1.1);
+            background: rgba(var(--nav-bg-rgb), 0.2);
+        }
+
+        .benefit-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+
+        .benefit-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin: 0;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 991px) {
+            .benefits-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .benefits-section {
+                padding: 80px 20px;
+            }
+
+            .benefits-section h2 {
+                font-size: 2rem;
+            }
         }
 
         /* Features Section */
@@ -496,14 +604,14 @@
         .play-store-badge {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             background: linear-gradient(135deg, rgba(103, 58, 183, 0.1) 0%, rgba(103, 58, 183, 0.15) 100%);
-            padding: 8px 20px;
+            padding: 12px 28px;
             border-radius: 50px;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
             backdrop-filter: blur(8px);
             border: none;
-            font-size: 0.95rem;
+            font-size: 1.1rem;
             font-weight: 500;
             color: var(--text-color);
             transition: all 0.3s ease;
@@ -525,8 +633,8 @@
         }
 
         .play-store-badge svg {
-            width: 18px;
-            height: 18px;
+            width: 22px;
+            height: 22px;
             fill: var(--text-color);
             position: relative;
             z-index: 1;
@@ -627,6 +735,44 @@
             0%, 100% { transform: translateX(0); }
             50% { transform: translateX(30px); }
         }
+
+        /* CTA Section Styles */
+        .cta-section {
+            padding: 100px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-text {
+            color: var(--text-color);
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Try for Free Button */
+        .try-free-btn {
+            border-radius: 50px;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            background-color: var(--button-bg);
+            color: var(--button-text);
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .try-free-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(13, 110, 253, 0.3);
+        }
+
+        .try-free-btn:active {
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body data-theme="light">
@@ -685,6 +831,57 @@
         </div>
     </header>
 
+    <!-- Benefits Section -->
+    <section id="benefits" class="benefits-section">
+        <h2 class="text-center mb-5">Save time on content creation</h2>
+        <p class="text-center text-secondary mb-5">Every day, content creators spend hours crafting the perfect captions. "Just one more try" turns into countless attempts. But with Capto, you can transform this time-consuming process into a seamless experience.</p>
+        
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                    </svg>
+                </div>
+                <h3>Smart AI Processing</h3>
+                <p>Generate captions in seconds using our advanced AI model that understands context and emotion in your images.</p>
+            </div>
+
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                    </svg>
+                </div>
+                <h3>Style Variety</h3>
+                <p>Access multiple caption styles instantly - from professional to casual, funny to poetic. No more writer's block.</p>
+            </div>
+
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 6v6l4 2"/>
+                    </svg>
+                </div>
+                <h3>Time-Saving Features</h3>
+                <p>Batch process multiple images, save favorite styles, and quickly regenerate captions until they're perfect.</p>
+            </div>
+
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                        <polyline points="22 4 12 14.01 9 11.01"/>
+                    </svg>
+                </div>
+                <h3>Reliable Results</h3>
+                <p>Our AI ensures consistently high-quality captions that maintain your brand voice and messaging.</p>
+            </div>
+        </div>
+    </section>
+
     <!-- Features Section -->
     <section id="features">
         <h2 class="fw-bold">Why Choose Capto?</h2>
@@ -703,6 +900,12 @@
             </div>
         </div>
     </section>
+
+    <!-- Try for Free Button Section -->
+    <div class="text-center cta-section">
+        <h3 class="cta-text">✨ Transform any image into engaging captions in seconds</h3>
+        <a href="/index.html" class="btn btn-primary btn-lg try-free-btn">Try for Free</a>
+    </div>
 
     <!-- Footer -->
     <footer>
