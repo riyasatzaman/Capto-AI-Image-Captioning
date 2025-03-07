@@ -36,5 +36,10 @@ def upload_image():
 
     return render_template("index.html", uploaded_image=None, caption=None)
 
+@app.route("/home")
+def home():
+    return render_template("home.html")
+
+
 if __name__ == "__main__":
     app.run(debug=True)

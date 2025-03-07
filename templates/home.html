@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capto - AI Image Captioning</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/scrollReveal.js/4.0.9/scrollreveal.min.js"></script>
+    <style>
+        /* Dark Mode Styles */
+        body.dark-mode {
+            background-color: #1e1e1e;
+            color: white;
+        }
+        .dark-mode .navbar {
+            background-color: #333;
+        }
+        .dark-mode a, 
+        .dark-mode h1, 
+        .dark-mode h2, 
+        .dark-mode p {
+            color: white !important;
+        }
+        .dark-mode .btn-outline-light {
+            background-color: white;
+            color: black;
+        }
+
+        /* Hero Section Styling */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh; /* Full viewport height */
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+            background: url("https://source.unsplash.com/1600x900/?technology,ai") no-repeat center center/cover;
+        }
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: bold;
+            color: black;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            color: #333;
+        }
+        .dark-mode .hero h1, 
+        .dark-mode .hero p {
+            color: white !important;
+        }
+        .hero .btn-primary {
+            font-size: 1.2rem;
+            padding: 12px 24px;
+            margin-top: 20px;
+        }
+
+        /* Features Section - Now Properly Centered */
+        .features-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            height: 80vh; /* Ensuring it's in the middle */
+        }
+        .features-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        .feature-box {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 320px;
+            transition: transform 0.3s ease-in-out;
+        }
+        .feature-box:hover {
+            transform: translateY(-5px);
+        }
+        .dark-mode .feature-box {
+            background: #2a2a2a;
+            box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Footer - Includes Legal Disclaimer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            background: #f8f9fa;
+            margin-top: 80px;
+        }
+        .footer p {
+            font-size: 0.9rem;
+            max-width: 900px;
+            margin: 0 auto;
+            color: #666;
+            line-height: 1.6;
+        }
+        .dark-mode .footer {
+            background: #2a2a2a;
+        }
+        .dark-mode .footer p {
+            color: #ccc;
+        }
+
+    </style>
+</head>
+<body class="container-fluid">
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">Capto</a>
+            <button class="btn btn-outline-light" id="theme-toggle">🌙 Dark Mode</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <h1>Capto - AI Image Captioning</h1>
+        <p>Transform your images into words with our advanced AI-powered captioning tool.</p>
+        <a href="/" class="btn btn-primary btn-lg">Try Now</a>
+    </header>
+
+    <!-- Features Section - Now Properly Centered -->
+    <section class="features-section">
+        <h2 class="fw-bold">Why Choose Capto?</h2>
+        <div class="features-container">
+            <div class="feature-box">
+                <h4>🔍 AI-Powered</h4>
+                <p>Leverages advanced AI to generate high-quality captions instantly.</p>
+            </div>
+            <div class="feature-box">
+                <h4>🎨 Multiple Styles</h4>
+                <p>Choose from formal, funny, poetic, or witty captioning styles.</p>
+            </div>
+            <div class="feature-box">
+                <h4>🚀 Fast & Reliable</h4>
+                <p>Captions are generated in real-time, making it easy to use.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer with Legal Disclaimer -->
+    <footer class="footer">
+        <p>
+            Capto is a trademark of Capto AI Technologies Inc. Any other trademarks are the property of their respective owners. 
+            Unless otherwise noted, the use of third-party logos does not imply endorsement, sponsorship, or affiliation with Capto.
+        </p>
+        <p>
+            Capto provides AI-based captioning services and does not store or distribute user-uploaded content. 
+            User privacy is a priority, and all processed images are deleted after caption generation.
+        </p>
+        <p>© 2025 Capto. All rights reserved.</p>
+    </footer>
+
+    <!-- Dark Mode Toggle Script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const themeToggle = document.getElementById("theme-toggle");
+            const body = document.body;
+
+            // Check local storage for dark mode preference
+            if (localStorage.getItem("dark-mode") === "enabled") {
+                body.classList.add("dark-mode");
+                themeToggle.textContent = "☀️ Light Mode";
+            }
+
+            themeToggle.addEventListener("click", () => {
+                body.classList.toggle("dark-mode");
+
+                // Save preference in local storage
+                if (body.classList.contains("dark-mode")) {
+                    localStorage.setItem("dark-mode", "enabled");
+                    themeToggle.textContent = "☀️ Light Mode";
+                } else {
+                    localStorage.setItem("dark-mode", "disabled");
+                    themeToggle.textContent = "🌙 Dark Mode";
+                }
+            });
+        });
+
+        // Smooth Scroll Animation
+        ScrollReveal().reveal('.features-section', {
+            delay: 300,
+            distance: '50px',
+            origin: 'bottom',
+            duration: 800,
+            easing: 'ease-in-out'
+        });
+    </script>
+
+</body>
+</html>
