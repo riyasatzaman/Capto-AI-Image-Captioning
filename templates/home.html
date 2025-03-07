@@ -40,13 +40,58 @@
         /* Navbar Styles */
         .navbar {
             background-color: var(--nav-bg) !important;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 0.8rem 0;
         }
         .navbar-brand, .nav-link {
             color: var(--text-color) !important;
             font-weight: 500;
+            position: relative;
+            padding: 0.5rem 1rem;
+            transition: color 0.3s ease;
         }
-        .navbar-brand:hover, .nav-link:hover {
-            text-decoration: underline;
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: var(--button-bg);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        .nav-link:hover::after {
+            width: 80%;
+        }
+        .navbar-toggler {
+            border: none;
+            padding: 0.5rem;
+            transition: background-color 0.3s ease;
+            border-radius: 8px;
+        }
+        .navbar-toggler:focus {
+            box-shadow: none;
+            background-color: rgba(0,0,0,0.05);
+        }
+        [data-theme="dark"] .navbar-toggler:focus {
+            background-color: rgba(255,255,255,0.05);
+        }
+        @media (max-width: 991px) {
+            .navbar-collapse {
+                background-color: var(--nav-bg);
+                padding: 1rem;
+                border-radius: 8px;
+                margin-top: 0.5rem;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            }
+            .nav-link::after {
+                left: 0;
+                transform: none;
+            }
+            .nav-link:hover::after {
+                width: 100%;
+            }
         }
 
         /* Hero Section */
@@ -119,13 +164,20 @@
             border-radius: 8px;
             text-align: center;
             box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
         }
         .feature-box:hover {
             transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            border-color: var(--button-bg);
         }
         [data-theme="dark"] .feature-box {
             background-color: #2b3035;
+            border-color: rgba(255,255,255,0.1);
+        }
+        [data-theme="dark"] .feature-box:hover {
+            border-color: var(--button-bg);
         }
 
         /* Footer */
@@ -137,13 +189,47 @@
             margin-top: auto; /* Push footer to bottom */
         }
 
-        /* Dark Mode Toggle Button */
+        /* Button Hover Effects */
+        .btn {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .btn:active {
+            transform: translateY(0);
+        }
+        .hero .btn-outline-light:hover {
+            background-color: var(--button-bg);
+            color: var(--button-text);
+            border-color: var(--button-bg);
+        }
+
+        /* Dark Mode Toggle Button Enhanced */
         #theme-toggle-btn {
             border: none;
             background: none;
             color: var(--text-color);
             font-size: 1rem;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+        #theme-toggle-btn:hover {
+            background-color: rgba(0,0,0,0.05);
+            border-color: var(--button-bg);
+        }
+        [data-theme="dark"] #theme-toggle-btn:hover {
+            background-color: rgba(255,255,255,0.05);
+            border-color: var(--button-bg);
         }
     </style>
 </head>
@@ -164,7 +250,7 @@
                     <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
                 </ul>
             </div>
-            <button id="theme-toggle-btn" class="btn btn-sm">Dark Mode</button>
+            <button id="theme-toggle-btn" class="btn btn-sm">☀️ Light Mode</button>
         </div>
     </nav>
 
@@ -213,7 +299,7 @@
         // Check saved theme
         const savedTheme = localStorage.getItem("theme") || "light";
         htmlEl.setAttribute("data-theme", savedTheme);
-        themeToggleBtn.textContent = savedTheme === "dark" ? "Light Mode" : "Dark Mode";
+        themeToggleBtn.innerHTML = savedTheme === "dark" ? "🌙 Dark Mode" : "☀️ Light Mode";
 
         themeToggleBtn.addEventListener("click", () => {
             const currentTheme = htmlEl.getAttribute("data-theme");
@@ -221,7 +307,15 @@
 
             htmlEl.setAttribute("data-theme", newTheme);
             localStorage.setItem("theme", newTheme);
-            themeToggleBtn.textContent = newTheme === "dark" ? "Light Mode" : "Dark Mode";
+            themeToggleBtn.innerHTML = newTheme === "dark" ? "🌙 Dark Mode" : "☀️ Light Mode";
+        });
+
+        // Initialize ScrollReveal
+        ScrollReveal().reveal('.feature-box', {
+            delay: 200,
+            distance: '20px',
+            origin: 'bottom',
+            interval: 100
         });
     </script>
 </body>

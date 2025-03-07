@@ -43,23 +43,171 @@
         /* Navbar Styling */
         .navbar {
             background-color: var(--nav-bg) !important;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 0.8rem 0;
         }
 
         .navbar-brand, .nav-link {
             color: var(--text-color) !important;
             font-weight: 500;
+            position: relative;
+            padding: 0.5rem 1rem;
+            transition: color 0.3s ease;
         }
 
-        .navbar-brand:hover, .nav-link:hover {
-            text-decoration: underline;
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: var(--button-bg);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
         }
 
+        .nav-link:hover::after {
+            width: 80%;
+        }
+
+        .navbar-toggler {
+            border: none;
+            padding: 0.5rem;
+            transition: background-color 0.3s ease;
+            border-radius: 8px;
+        }
+
+        .navbar-toggler:focus {
+            box-shadow: none;
+            background-color: rgba(0,0,0,0.05);
+        }
+
+        [data-theme="dark"] .navbar-toggler:focus {
+            background-color: rgba(255,255,255,0.05);
+        }
+
+        @media (max-width: 991px) {
+            .navbar-collapse {
+                background-color: var(--nav-bg);
+                padding: 1rem;
+                border-radius: 8px;
+                margin-top: 0.5rem;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            }
+            .nav-link::after {
+                left: 0;
+                transform: none;
+            }
+            .nav-link:hover::after {
+                width: 100%;
+            }
+        }
+
+        /* Enhanced Button Styles */
+        .btn {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        /* Enhanced Card Hover Effects */
+        .upload-section, .result-section {
+            background: var(--card-bg);
+            padding: 1.8rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .upload-section:hover, .result-section:hover {
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            border-color: var(--button-bg);
+        }
+
+        [data-theme="dark"] .upload-section, [data-theme="dark"] .result-section {
+            border-color: rgba(255,255,255,0.1);
+        }
+
+        [data-theme="dark"] .upload-section:hover, [data-theme="dark"] .result-section:hover {
+            border-color: var(--button-bg);
+        }
+
+        /* Form Controls Enhancement */
+        .form-control, .form-select {
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .form-control:hover, .form-select:hover {
+            border-color: var(--button-bg);
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--button-bg);
+            box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+        }
+
+        /* Action Buttons Container */
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .style-selector {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .style-selector .form-select {
+            min-width: 120px;
+        }
+
+        .btn {
+            padding: 0.5rem 1.5rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 120px;
+        }
+
+        /* Dark Mode Toggle Button Enhanced */
         #theme-toggle-btn {
             border: none;
             background: none;
             color: var(--text-color);
             font-size: 1rem;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        #theme-toggle-btn:hover {
+            background-color: rgba(0,0,0,0.05);
+            border-color: var(--button-bg);
+        }
+
+        [data-theme="dark"] #theme-toggle-btn:hover {
+            background-color: rgba(255,255,255,0.05);
+            border-color: var(--button-bg);
         }
 
         /* Main Container */
@@ -116,7 +264,6 @@
     </style>
 </head>
 <body>
-
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg">
         <div class="container">
@@ -132,7 +279,7 @@
                     <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
                 </ul>
             </div>
-            <button id="theme-toggle-btn">Dark Mode</button>
+            <button id="theme-toggle-btn">☀️ Light Mode</button>
         </div>
     </nav>
 
@@ -156,18 +303,22 @@
             <h3>Generated Caption</h3>
             <p class="caption-text">{{ caption }}</p>
 
-            <form action="/" method="post" class="d-inline-flex gap-2">
-                <input type="hidden" name="uploaded_image" value="{{ uploaded_image }}">
-                <select name="style" class="form-select">
-                    <option value="default">Default</option>
-                    <option value="funny">Funny</option>
-                    <option value="poetic">Poetic</option>
-                    <option value="witty">Witty</option>
-                    <option value="formal">Formal</option>
-                </select>
-                <button type="submit" name="retry" value="true" class="btn btn-warning">Retry</button>
-            </form>
-            <button class="btn btn-success" onclick="copyToClipboard()">Copy Caption</button>
+            <div class="action-buttons">
+                <div class="style-selector">
+                    <form action="/" method="post" class="d-flex gap-2">
+                        <input type="hidden" name="uploaded_image" value="{{ uploaded_image }}">
+                        <select name="style" class="form-select">
+                            <option value="default">Default</option>
+                            <option value="funny">Funny</option>
+                            <option value="poetic">Poetic</option>
+                            <option value="witty">Witty</option>
+                            <option value="formal">Formal</option>
+                        </select>
+                        <button type="submit" name="retry" value="true" class="btn btn-warning">Retry</button>
+                    </form>
+                </div>
+                <button class="btn btn-success" onclick="copyToClipboard()">Copy Caption</button>
+            </div>
         </div>
         {% endif %}
     </div>
@@ -180,7 +331,7 @@
 
             const savedTheme = localStorage.getItem('theme') || "light";
             htmlElement.setAttribute('data-theme', savedTheme);
-            themeToggleBtn.textContent = savedTheme === 'dark' ? 'Light Mode' : 'Dark Mode';
+            themeToggleBtn.innerHTML = savedTheme === 'dark' ? '🌙 Dark Mode' : '☀️ Light Mode';
 
             themeToggleBtn.addEventListener('click', function() {
                 const currentTheme = htmlElement.getAttribute('data-theme');
@@ -188,7 +339,7 @@
 
                 htmlElement.setAttribute('data-theme', newTheme);
                 localStorage.setItem('theme', newTheme);
-                themeToggleBtn.textContent = newTheme === 'dark' ? 'Light Mode' : 'Dark Mode';
+                themeToggleBtn.innerHTML = newTheme === 'dark' ? '🌙 Dark Mode' : '☀️ Light Mode';
             });
         });
 
@@ -211,6 +362,5 @@
                 .catch(() => alert("Failed to copy caption"));
         }
     </script>
-
 </body>
 </html>
