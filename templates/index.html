@@ -8,12 +8,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #f8f9fa;
+            --bg-color: #ffffff;
             --card-bg: white;
-            --text-color: #343a40;
+            --text-color: #212529;
             --text-secondary: #6c757d;
             --caption-bg: #f8f9fa;
+            --nav-bg: #f8f9fa;
             --transition-speed: 0.4s;
+            --button-bg: #0d6efd;
+            --button-text: #ffffff;
         }
 
         [data-theme="dark"] {
@@ -22,162 +25,125 @@
             --text-color: #f8f9fa;
             --text-secondary: #adb5bd;
             --caption-bg: #2b3035;
+            --nav-bg: #333;
+            --button-bg: #0d6efd;
+            --button-text: #ffffff;
         }
 
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 1.5rem 0;
             transition: background-color 0.3s ease;
-            font-size: 0.95rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
+
+        /* Navbar Styling */
+        .navbar {
+            background-color: var(--nav-bg) !important;
+        }
+
+        .navbar-brand, .nav-link {
+            color: var(--text-color) !important;
+            font-weight: 500;
+        }
+
+        .navbar-brand:hover, .nav-link:hover {
+            text-decoration: underline;
+        }
+
+        #theme-toggle-btn {
+            border: none;
+            background: none;
+            color: var(--text-color);
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        /* Main Container */
         .main-container {
             max-width: 700px;
             width: 100%;
-            margin: 0 auto;
+            margin: auto;
             padding: 1.8rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
+
         .upload-section {
             background: var(--card-bg);
             padding: 1.8rem;
             border-radius: 10px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.08);
             margin-bottom: 1.5rem;
-            transition: transform var(--transition-speed) ease, margin var(--transition-speed) ease;
         }
-        .upload-section.collapsed {
-            transform: translateY(-10px);
-            margin-bottom: 0.5rem;
-        }
+
         .result-section {
             background: var(--card-bg);
             padding: 1.8rem;
             border-radius: 10px;
-            margin-top: 1.5rem;
             box-shadow: 0 4px 15px rgba(0,0,0,0.08);
             opacity: 0;
             transform: translateY(20px);
             transition: opacity var(--transition-speed) ease, transform var(--transition-speed) ease;
         }
+
         .result-section.visible {
             opacity: 1;
             transform: translateY(0);
         }
-        .btn {
-            padding: 0.5rem 1.5rem;
-            font-weight: 600;
-            border-radius: 6px;
-            transition: all 0.2s ease;
-            font-size: 0.9rem;
-        }
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
+
         .caption-text {
             font-size: 1.05rem;
             color: var(--text-color);
-            margin: 1.5rem 0;
             padding: 1.2rem;
             background: var(--caption-bg);
             border-radius: 6px;
-            line-height: 1.5;
         }
-        .app-description {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            margin-bottom: 1.5rem;
-            text-align: center;
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
         }
-        .form-control, .form-select {
-            padding: 0.5rem 0.8rem;
-            border-radius: 6px;
-            font-size: 0.9rem;
-        }
-        h1 {
-            font-weight: 600;
-            color: var(--text-color);
-            margin-bottom: 0.8rem;
-            font-size: 1.8rem;
-        }
-        h3 {
-            font-weight: 600;
-            color: var(--text-color);
-            font-size: 1.3rem;
-        }
-        .img-container {
-            margin: 1.5rem 0;
-            opacity: 0;
-            transition: opacity var(--transition-speed) ease;
-        }
-        .img-container.visible {
-            opacity: 1;
-        }
-        .theme-toggle {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 1rem;
-        }
-        .theme-toggle-btn {
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            background-color: var(--card-bg);
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            position: relative;
-        }
-        .theme-toggle-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        .theme-icon {
-            width: 20px;
-            height: 20px;
-            fill: var(--text-color);
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            transition: opacity 0.3s ease;
-        }
-        .mb-4 {
-            margin-bottom: 1rem !important;
-        }
-        .style-controls {
-            display: flex;
-            justify-content: center;
-            gap: 0.8rem;
-            flex-wrap: wrap;
+
+        .text-muted {
+            color: var(--text-secondary) !important;
         }
     </style>
 </head>
 <body>
-    <div class="main-container">
-        <div class="theme-toggle">
-            <button id="theme-toggle-btn" class="theme-toggle-btn" aria-label="Toggle theme">
-                <svg id="sun-icon" class="theme-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M12 15.5q1.45 0 2.475-1.025Q15.5 13.45 15.5 12q0-1.45-1.025-2.475Q13.45 8.5 12 8.5q-1.45 0-2.475 1.025Q8.5 10.55 8.5 12q0 1.45 1.025 2.475Q10.55 15.5 12 15.5Zm0 1.5q-2.075 0-3.537-1.463T7 12q0-2.075 1.463-3.537T12 7q2.075 0 3.537 1.463T17 12q0 2.075-1.463 3.537T12 17ZM1.75 12.75q-.3 0-.525-.225Q1 12.3 1 12q0-.3.225-.525q.225-.225.525-.225h2.5q.3 0 .525.225q.225.225.225.525q0 .3-.225.525q-.225.225-.525.225Zm18 0q-.3 0-.525-.225Q19 12.3 19 12q0-.3.225-.525q.225-.225.525-.225h2.5q.3 0 .525.225q.225.225.225.525q0 .3-.225.525q-.225.225-.525.225ZM12 5q-.3 0-.525-.225Q11.25 4.55 11.25 4.25v-2.5q0-.3.225-.525Q11.7 1 12 1q.3 0 .525.225q.225.225.225.525v2.5q0 .3-.225.525Q12.3 5 12 5Zm0 18q-.3 0-.525-.225q-.225-.225-.225-.525v-2.5q0-.3.225-.525q.225-.225.525-.225q.3 0 .525.225q.225.225.225.525v2.5q0 .3-.225.525Q12.3 23 12 23ZM6 7.05l-1.425-1.4q-.225-.225-.213-.537q.013-.313.213-.513q.225-.225.525-.225t.525.225L7.05 6q.2.2.2.5q0 .3-.2.525q-.2.2-.513.2q-.312 0-.537-.175Zm12.35 12.375L16.95 18q-.2-.225-.2-.525q0-.3.2-.525q.2-.2.525-.2q.325 0 .525.2l1.425 1.4q.225.225.212.538q-.012.312-.212.512q-.225.225-.525.225t-.525-.225ZM16.95 7.05q-.225-.225-.225-.525q0-.3.225-.525l1.4-1.425q.225-.225.525-.212q.3.012.5.212q.225.225.225.525t-.225.525L18 7.05q-.2.2-.512.2q-.313 0-.538-.2ZM4.6 19.4q-.225-.225-.225-.525t.225-.525L6 16.95q.225-.225.525-.225q.3 0 .525.225q.225.225.225.525q0 .3-.225.525l-1.4 1.425q-.225.225-.525.212q-.3-.012-.525-.237Z"/>
-                </svg>
-                <svg id="moon-icon" class="theme-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="opacity: 0;">
-                    <path d="M12 21q-3.75 0-6.375-2.625T3 12q0-3.75 2.625-6.375T12 3q.2 0 .425.013q.225.012.425.037q-1.8 1.5-2.862 3.688Q9 8.925 9 11q0 3.175 2.238 5.413Q13.475 18.65 16.65 18.65q2.05 0 4.113-1.037q2.062-1.038 3.237-2.763q.025.2.038.425q.012.225.012.425q0 3.75-2.625 6.375T12 21Z"/>
-                </svg>
-            </button>
-        </div>
 
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="/home">Capto</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/updates">Updates</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+                </ul>
+            </div>
+            <button id="theme-toggle-btn">Dark Mode</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-container">
         <h1 class="text-center">Capto - AI Image Captioning</h1>
-        <p class="app-description">Transform your images into words with our advanced AI-powered captioning tool</p>
+        <p class="text-center text-muted">Transform your images into words with our AI-powered captioning tool.</p>
 
         <div id="upload-section" class="upload-section text-center">
             <form id="upload-form" action="/" method="post" enctype="multipart/form-data">
-                <div class="mb-4">
+                <div class="mb-3">
                     <input type="file" name="file" accept="image/*" class="form-control" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Upload & Get Caption</button>
@@ -186,106 +152,65 @@
 
         {% if uploaded_image %}
         <div id="result-section" class="result-section text-center">
-            <div id="img-container" class="img-container">
-                <img src="{{ url_for('static', filename='uploads/' + uploaded_image) }}" 
-                     class="img-fluid rounded" 
-                     style="max-width: 450px; width: 100%;">
-            </div>
-            
-            <h3 class="mb-3">Generated Caption</h3>
+            <img src="{{ url_for('static', filename='uploads/' + uploaded_image) }}" class="img-fluid rounded mb-3" style="max-width: 450px;">
+            <h3>Generated Caption</h3>
             <p class="caption-text">{{ caption }}</p>
 
-            <div class="style-controls">
-                <form action="/" method="post" class="d-inline-flex gap-2">
-                    <input type="hidden" name="uploaded_image" value="{{ uploaded_image }}">
-                    <select name="style" class="form-select" style="width: auto;">
-                        <option value="default">Default</option>
-                        <option value="funny">Funny</option>
-                        <option value="poetic">Poetic</option>
-                        <option value="witty">Witty</option>
-                        <option value="formal">Formal</option>
-                    </select>
-                    <button type="submit" name="retry" value="true" class="btn btn-warning">
-                        Retry with Style
-                    </button>
-                </form>
-                <button class="btn btn-success" onclick="copyToClipboard()">
-                    Copy Caption
-                </button>
-            </div>
+            <form action="/" method="post" class="d-inline-flex gap-2">
+                <input type="hidden" name="uploaded_image" value="{{ uploaded_image }}">
+                <select name="style" class="form-select">
+                    <option value="default">Default</option>
+                    <option value="funny">Funny</option>
+                    <option value="poetic">Poetic</option>
+                    <option value="witty">Witty</option>
+                    <option value="formal">Formal</option>
+                </select>
+                <button type="submit" name="retry" value="true" class="btn btn-warning">Retry</button>
+            </form>
+            <button class="btn btn-success" onclick="copyToClipboard()">Copy Caption</button>
         </div>
         {% endif %}
     </div>
 
     <script>
-        // Dark mode toggle functionality
+        // Dark Mode Toggle
         document.addEventListener('DOMContentLoaded', function() {
-            const toggleBtn = document.getElementById('theme-toggle-btn');
-            const sunIcon = document.getElementById('sun-icon');
-            const moonIcon = document.getElementById('moon-icon');
+            const themeToggleBtn = document.getElementById('theme-toggle-btn');
             const htmlElement = document.documentElement;
-            
-            // Check for saved user preference
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme) {
-                htmlElement.setAttribute('data-theme', savedTheme);
-                updateIcons(savedTheme);
-            }
-            
-            toggleBtn.addEventListener('click', function() {
+
+            const savedTheme = localStorage.getItem('theme') || "light";
+            htmlElement.setAttribute('data-theme', savedTheme);
+            themeToggleBtn.textContent = savedTheme === 'dark' ? 'Light Mode' : 'Dark Mode';
+
+            themeToggleBtn.addEventListener('click', function() {
                 const currentTheme = htmlElement.getAttribute('data-theme');
                 const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-                
+
                 htmlElement.setAttribute('data-theme', newTheme);
                 localStorage.setItem('theme', newTheme);
-                updateIcons(newTheme);
+                themeToggleBtn.textContent = newTheme === 'dark' ? 'Light Mode' : 'Dark Mode';
             });
-            
-            function updateIcons(theme) {
-                if (theme === 'dark') {
-                    sunIcon.style.opacity = '0';
-                    moonIcon.style.opacity = '1';
-                } else {
-                    sunIcon.style.opacity = '1';
-                    moonIcon.style.opacity = '0';
-                }
-            }
-
-            // Animation for form submission and result display
-            const uploadForm = document.getElementById('upload-form');
-            const uploadSection = document.getElementById('upload-section');
-            const resultSection = document.getElementById('result-section');
-            const imgContainer = document.getElementById('img-container');
-            
-            {% if uploaded_image %}
-                // If there's an uploaded image, show animations on page load
-                setTimeout(() => {
-                    uploadSection.classList.add('collapsed');
-                    resultSection.classList.add('visible');
-                    imgContainer.classList.add('visible');
-                }, 300);
-            {% endif %}
-            
-            if (uploadForm) {
-                uploadForm.addEventListener('submit', function() {
-                    uploadSection.classList.add('collapsed');
-                });
-            }
         });
 
+        // Show Results with Animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const uploadSection = document.getElementById('upload-section');
+            const resultSection = document.getElementById('result-section');
+            
+            {% if uploaded_image %}
+                setTimeout(() => {
+                    resultSection.classList.add('visible');
+                }, 300);
+            {% endif %}
+        });
+
+        // Copy to Clipboard
         function copyToClipboard() {
-            const caption = "{{ caption }}";
-            navigator.clipboard.writeText(caption)
-                .then(() => {
-                    const btn = event.target;
-                    const originalText = btn.textContent;
-                    btn.textContent = 'Copied!';
-                    setTimeout(() => {
-                        btn.textContent = originalText;
-                    }, 2000);
-                })
-                .catch(() => alert('Failed to copy caption'));
+            navigator.clipboard.writeText("{{ caption }}")
+                .then(() => alert("Caption copied!"))
+                .catch(() => alert("Failed to copy caption"));
         }
     </script>
+
 </body>
 </html>
