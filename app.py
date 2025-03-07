@@ -1,13 +1,13 @@
 from flask import Flask, request, render_template
 import os
 from werkzeug.utils import secure_filename
-from captioning import generate_caption  # Import AI logic
+from captioning import generate_caption  # Ensure this is correctly imported
 
 app = Flask(__name__)
 UPLOAD_FOLDER = "static/uploads"
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
-# Ensure upload folder exists
+# Ensure the upload folder exists
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
 
@@ -52,5 +52,7 @@ def updates():
 def contact():
     return render_template("contact.html")
 
+# Ensure Flask binds to the correct host and port for Vercel
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))  # Use Vercel's assigned port
+    app.run(host="0.0.0.0", port=port, debug=True)
