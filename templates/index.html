@@ -14,9 +14,15 @@
             --text-secondary: #6c757d;
             --caption-bg: #f8f9fa;
             --nav-bg: #f8f9fa;
+            --nav-bg-rgb: 248, 249, 250;
             --transition-speed: 0.4s;
             --button-bg: #0d6efd;
             --button-text: #ffffff;
+            --gradient-start: #f8f9ff;
+            --gradient-mid: #f0f2ff;
+            --gradient-end: #eef5ff;
+            --accent-color: rgba(103, 58, 183, 0.15);
+            --accent-glow: rgba(103, 58, 183, 0.2);
         }
 
         [data-theme="dark"] {
@@ -26,23 +32,315 @@
             --text-secondary: #adb5bd;
             --caption-bg: #2b3035;
             --nav-bg: #333;
+            --nav-bg-rgb: 51, 51, 51;
             --button-bg: #0d6efd;
             --button-text: #ffffff;
+            --gradient-start: #1a1d21;
+            --gradient-mid: #1e2227;
+            --gradient-end: #1c2026;
+            --accent-color: rgba(103, 58, 183, 0.1);
+            --accent-glow: rgba(103, 58, 183, 0.15);
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--bg-color);
+            background: linear-gradient(135deg, 
+                var(--gradient-start) 0%, 
+                var(--gradient-mid) 50%, 
+                var(--gradient-end) 100%);
             color: var(--text-color);
             transition: background-color 0.3s ease;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            position: relative;
+            overflow-x: hidden;
         }
 
-        /* Navbar Styling */
+        /* Background Elements */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, var(--accent-glow) 0%, transparent 70%);
+            z-index: 0;
+            pointer-events: none;
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: -50%;
+            left: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, var(--accent-glow) 0%, transparent 70%);
+            z-index: 0;
+            pointer-events: none;
+            animation: pulse 8s ease-in-out infinite reverse;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.4; }
+            50% { opacity: 0.6; }
+            100% { opacity: 0.4; }
+        }
+
+        .geometric-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.4;
+        }
+
+        /* Top right diagonal line */
+        .geometric-shapes::before {
+            content: '';
+            position: absolute;
+            top: 15%;
+            right: 20%;
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(45deg, transparent 45%, var(--accent-color) 45%, var(--accent-color) 55%, transparent 55%);
+            transform: rotate(35deg);
+            animation: float 8s ease-in-out infinite;
+        }
+
+        /* Bottom left circle */
+        .geometric-shapes::after {
+            content: '';
+            position: absolute;
+            bottom: 15%;
+            left: 20%;
+            width: 200px;
+            height: 200px;
+            border: 2px solid var(--accent-color);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 8s ease-in-out infinite reverse;
+        }
+
+        /* Additional shapes */
+        .geometric-shapes .hexagon {
+            position: absolute;
+            top: 35%;
+            right: 10%;
+            width: 100px;
+            height: 57.735px;
+            background: var(--accent-color);
+            opacity: 0.1;
+            clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+            animation: float 9s ease-in-out infinite;
+        }
+
+        .geometric-shapes .cross {
+            position: absolute;
+            bottom: 30%;
+            right: 25%;
+            width: 80px;
+            height: 80px;
+            opacity: 0.15;
+            animation: float 10s ease-in-out infinite;
+        }
+
+        .geometric-shapes .cross::before,
+        .geometric-shapes .cross::after {
+            content: '';
+            position: absolute;
+            background: var(--accent-color);
+        }
+
+        .geometric-shapes .cross::before {
+            left: 50%;
+            width: 2px;
+            height: 100%;
+            transform: translateX(-50%);
+        }
+
+        .geometric-shapes .cross::after {
+            top: 50%;
+            height: 2px;
+            width: 100%;
+            transform: translateY(-50%);
+        }
+
+        .geometric-shapes .circles-group {
+            position: absolute;
+            top: 25%;
+            left: 15%;
+            width: 120px;
+            height: 120px;
+            opacity: 0.2;
+            animation: float 11s ease-in-out infinite;
+        }
+
+        .geometric-shapes .circles-group::before,
+        .geometric-shapes .circles-group::after {
+            content: '';
+            position: absolute;
+            border: 1px solid var(--accent-color);
+            border-radius: 50%;
+        }
+
+        .geometric-shapes .circles-group::before {
+            width: 100%;
+            height: 100%;
+        }
+
+        .geometric-shapes .circles-group::after {
+            width: 60%;
+            height: 60%;
+            top: 20%;
+            left: 20%;
+        }
+
+        .geometric-shapes .dots-grid {
+            position: absolute;
+            bottom: 20%;
+            left: 30%;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            opacity: 0.15;
+            animation: float 12s ease-in-out infinite reverse;
+        }
+
+        .geometric-shapes .dots-grid::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            grid-column: span 3;
+        }
+
+        /* New additional shapes */
+        .geometric-shapes .spiral {
+            position: absolute;
+            top: 15%;
+            left: 40%;
+            width: 80px;
+            height: 80px;
+            border: 2px solid var(--accent-color);
+            border-radius: 50%;
+            opacity: 0.15;
+            animation: spiral 20s linear infinite;
+        }
+
+        .geometric-shapes .floating-squares {
+            position: absolute;
+            bottom: 40%;
+            right: 40%;
+            width: 100px;
+            height: 100px;
+            opacity: 0.15;
+            animation: float 14s ease-in-out infinite;
+        }
+
+        .geometric-shapes .floating-squares::before,
+        .geometric-shapes .floating-squares::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 1.5px solid var(--accent-color);
+            animation: rotate 10s linear infinite;
+        }
+
+        .geometric-shapes .floating-squares::before {
+            top: 0;
+            left: 0;
+            animation-delay: 0s;
+        }
+
+        .geometric-shapes .floating-squares::after {
+            bottom: 0;
+            right: 0;
+            animation-delay: -5s;
+        }
+
+        .geometric-shapes .zigzag {
+            position: absolute;
+            top: 55%;
+            right: 20%;
+            width: 150px;
+            height: 60px;
+            opacity: 0.1;
+            background: linear-gradient(45deg, transparent 45%, var(--accent-color) 45%, var(--accent-color) 55%, transparent 55%);
+            animation: drift 12s ease-in-out infinite;
+            transform: scale(0.5);
+        }
+
+        .geometric-shapes .pulse-dot {
+            position: absolute;
+            top: 75%;
+            left: 15%;
+            width: 12px;
+            height: 12px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            opacity: 0.2;
+            animation: pulse-fade 4s ease-in-out infinite;
+        }
+
+        @keyframes spiral {
+            from { transform: rotate(0deg) scale(1); }
+            to { transform: rotate(360deg) scale(0.5); }
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes drift {
+            0% { transform: translateX(0) scale(0.5); }
+            50% { transform: translateX(30px) scale(0.6); }
+            100% { transform: translateX(0) scale(0.5); }
+        }
+
+        @keyframes pulse-fade {
+            0%, 100% { transform: scale(1); opacity: 0.2; }
+            50% { transform: scale(1.5); opacity: 0.4; }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+            100% { transform: translateY(0) rotate(0); }
+        }
+
+        /* Ensure content stays above background */
+        .navbar, .main-container {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Enhance card backgrounds for better contrast */
+        .upload-section, .result-section {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        [data-theme="dark"] .upload-section,
+        [data-theme="dark"] .result-section {
+            background: rgba(52, 58, 64, 0.8);
+        }
+
+        /* Navbar Enhancement */
         .navbar {
-            background-color: var(--nav-bg) !important;
+            background-color: rgba(var(--nav-bg-rgb), 0.8) !important;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             padding: 0.8rem 0;
         }
@@ -104,18 +402,24 @@
             }
         }
 
-        /* Enhanced Button Styles */
+        /* Button Enhancements */
         .btn {
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            padding: 8px 24px;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 100px;
+            font-size: 0.95rem;
         }
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+
+        .btn-primary {
+            background-color: var(--button-bg);
+            border: none;
         }
-        .btn:active {
-            transform: translateY(0);
+
+        .btn-warning, .btn-success {
+            border-radius: 50px;
         }
 
         /* Enhanced Card Hover Effects */
@@ -173,14 +477,6 @@
         }
 
         .style-selector .form-select {
-            min-width: 120px;
-        }
-
-        .btn {
-            padding: 0.5rem 1.5rem;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
             min-width: 120px;
         }
 
@@ -261,9 +557,177 @@
         .text-muted {
             color: var(--text-secondary) !important;
         }
+
+        /* Play Store Badge */
+        .play-store-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, rgba(103, 58, 183, 0.1) 0%, rgba(103, 58, 183, 0.15) 100%);
+            padding: 8px 20px;
+            border-radius: 50px;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(8px);
+            border: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .play-store-badge::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+            opacity: 0.2;
+            transition: opacity 0.3s ease;
+        }
+
+        .play-store-badge:hover::before {
+            opacity: 0.4;
+        }
+
+        .play-store-badge svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--text-color);
+            position: relative;
+            z-index: 1;
+        }
+
+        .play-store-badge span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .play-store-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(131, 58, 180, 0.3);
+        }
+
+        [data-theme="dark"] .play-store-badge {
+            background: linear-gradient(135deg, rgba(103, 58, 183, 0.15) 0%, rgba(103, 58, 183, 0.1) 100%);
+        }
+
+        /* Additional floating shapes */
+        .geometric-shapes .floating-circle {
+            position: absolute;
+            top: 45%;
+            right: 45%;
+            width: 120px;
+            height: 120px;
+            border: 2px solid var(--accent-color);
+            border-radius: 50%;
+            opacity: 0.15;
+            animation: floatRotate 15s linear infinite;
+        }
+
+        .geometric-shapes .floating-circle::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 60%;
+            height: 60%;
+            border: 1px solid var(--accent-color);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .geometric-shapes .sparkles {
+            position: absolute;
+            top: 25%;
+            right: 35%;
+            pointer-events: none;
+        }
+
+        .geometric-shapes .sparkle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+            opacity: 0.2;
+        }
+
+        .geometric-shapes .sparkle:nth-child(1) { animation: sparkleFloat 4s ease-in-out infinite; }
+        .geometric-shapes .sparkle:nth-child(2) { animation: sparkleFloat 4s ease-in-out infinite 1s; left: 30px; }
+        .geometric-shapes .sparkle:nth-child(3) { animation: sparkleFloat 4s ease-in-out infinite 2s; left: 60px; }
+
+        .geometric-shapes .gradient-square {
+            position: absolute;
+            top: 60%;
+            left: 35%;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--accent-color) 0%, transparent 100%);
+            opacity: 0.1;
+            animation: rotateAndFloat 12s ease-in-out infinite;
+        }
+
+        .geometric-shapes .dotted-line {
+            position: absolute;
+            top: 35%;
+            left: 55%;
+            width: 150px;
+            height: 2px;
+            background: repeating-linear-gradient(90deg,
+                var(--accent-color) 0,
+                var(--accent-color) 5px,
+                transparent 5px,
+                transparent 10px
+            );
+            opacity: 0.2;
+            animation: floatHorizontal 8s ease-in-out infinite;
+        }
+
+        @keyframes floatRotate {
+            0% { transform: translateY(0) rotate(0); }
+            50% { transform: translateY(-30px) rotate(180deg); }
+            100% { transform: translateY(0) rotate(360deg); }
+        }
+
+        @keyframes sparkleFloat {
+            0%, 100% { transform: translateY(0) scale(1); opacity: 0.2; }
+            50% { transform: translateY(-20px) scale(1.5); opacity: 0.4; }
+        }
+
+        @keyframes rotateAndFloat {
+            0% { transform: translateY(0) rotate(0); }
+            50% { transform: translateY(-20px) rotate(90deg); }
+            100% { transform: translateY(0) rotate(180deg); }
+        }
+
+        @keyframes floatHorizontal {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(30px); }
+        }
     </style>
 </head>
 <body>
+    <!-- Background Elements -->
+    <div class="geometric-shapes">
+        <div class="hexagon"></div>
+        <div class="cross"></div>
+        <div class="circles-group"></div>
+        <div class="dots-grid"></div>
+        <div class="spiral"></div>
+        <div class="floating-squares"></div>
+        <div class="zigzag"></div>
+        <div class="pulse-dot"></div>
+        <div class="floating-circle"></div>
+        <div class="sparkles">
+            <div class="sparkle"></div>
+            <div class="sparkle"></div>
+            <div class="sparkle"></div>
+        </div>
+        <div class="gradient-square"></div>
+        <div class="dotted-line"></div>
+    </div>
+
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg">
         <div class="container">
@@ -285,8 +749,16 @@
 
     <!-- Main Content -->
     <div class="main-container">
-        <h1 class="text-center">Capto - AI Image Captioning</h1>
-        <p class="text-center text-muted">Transform your images into words with our AI-powered captioning tool.</p>
+        <div class="text-center">
+            <div class="play-store-badge">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M5 3.5L19 12L5 20.5V3.5Z"/>
+                </svg>
+                <span>Coming Soon to Play Store!</span>
+            </div>
+            <h1>Capto - AI Image Captioning</h1>
+            <p class="text-muted">Transform your images into words with our AI-powered captioning tool.</p>
+        </div>
 
         <div id="upload-section" class="upload-section text-center">
             <form id="upload-form" action="/" method="post" enctype="multipart/form-data">
