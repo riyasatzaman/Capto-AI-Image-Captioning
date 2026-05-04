@@ -43,7 +43,7 @@
             transition: background-color 0.3s ease, color 0.3s ease;
             -webkit-font-smoothing: antialiased;
         }
-        a { color: inherit; }
+        a { color: inherit; text-decoration: none; }
 
         /* ─── meta bar (corner labels) ───────────────────────── */
         .meta-bar {
@@ -110,6 +110,26 @@
             width: 100%;
             text-align: center;
             margin: 1.25rem 0 0.25rem;
+        }
+        .hero-eyebrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.7rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 0.32em;
+            text-transform: uppercase;
+            color: var(--fg-soft);
+            margin: 0 0 0.6rem;
+            animation: tagline-in 600ms 100ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+        }
+        .hero-eyebrow::before, .hero-eyebrow::after {
+            content: '';
+            display: inline-block;
+            width: 22px;
+            height: 1px;
+            background: var(--fg-faint);
         }
         .wordmark {
             font-family: 'Anton', sans-serif;
@@ -447,22 +467,6 @@
         }
         .btn-text:hover { color: var(--accent); }
 
-        /* ─── footer ────────────────────────────────────────── */
-        footer {
-            margin-top: auto;
-            padding: 2.5rem 1.75rem 1.25rem;
-            text-align: center;
-            font-size: 0.7rem;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: var(--fg-soft);
-        }
-        footer .footer-row { display: flex; gap: 1rem; justify-content: center; align-items: center; flex-wrap: wrap; }
-        footer a { color: inherit; text-decoration: none; transition: color 0.2s ease; }
-        footer a:hover { color: var(--accent); }
-        footer .sep { opacity: 0.4; }
-        footer .credit { margin-top: 0.5rem; opacity: 0.65; text-transform: none; letter-spacing: 0.04em; }
-
         /* ─── toast ─────────────────────────────────────────── */
         .toast-container {
             position: fixed;
@@ -498,17 +502,20 @@
         @keyframes spin { to { transform: rotate(360deg); } }
 
         /* ─── responsive ────────────────────────────────────── */
-        @media (max-width: 640px) {
+        @media (max-width: 760px) {
             .meta-bar {
                 grid-template-columns: 1fr auto;
                 grid-template-areas: "left right" "center center";
-                row-gap: 0.4rem;
+                row-gap: 0.7rem;
                 padding: 1rem 1.25rem;
-                font-size: 0.7rem;
+                font-size: 0.65rem;
             }
             .meta-bar .left { grid-area: left; }
-            .meta-bar .center { grid-area: center; }
+            .meta-bar .center { grid-area: center; justify-self: center; }
             .meta-bar .right { grid-area: right; }
+            .primary-nav { gap: 1rem; font-size: 0.65rem; flex-wrap: wrap; justify-content: center; }
+        }
+        @media (max-width: 640px) {
             main { padding: 0 1.25rem; }
             .hero-image { max-width: 60%; }
             .style-chips { gap: 0.4rem; }
@@ -519,8 +526,14 @@
 </head>
 <body>
     <header class="meta-bar">
-        <span class="left"><span class="brand-mark">❋</span>Capto</span>
-        <span class="center">Image → Caption</span>
+        <span class="left"><a class="home-link" href="/"><span class="brand-mark">◆</span>Capto</a></span>
+        <nav class="center primary-nav">
+            <a class="is-active" href="/">Captioner</a>
+            <a href="/about">About</a>
+            <a href="/updates">Updates</a>
+            <a href="/contact">Contact</a>
+            <a href="https://github.com/riyasatzaman/Capto-AI-Image-Captioning" target="_blank" rel="noopener">GitHub ↗</a>
+        </nav>
         <span class="right">
             <button id="theme-toggle" type="button" aria-label="Toggle theme">☀</button>
         </span>
@@ -529,6 +542,7 @@
     <main>
         {% if not uploaded_image %}
         <section class="hero">
+            <p class="hero-eyebrow">Image → Caption</p>
             <h1 class="wordmark">Capt<span class="letter-o">o<span class="brand-cap" aria-hidden="true"><svg viewBox="0 0 120 50" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M14 36 Q6 18 22 8 Q50 0 76 5 Q86 9 84 26 Q102 28 116 32 Q120 38 110 38 L14 38 Z"/></svg></span></span></h1>
         </section>
         <p class="tagline">Captions your photos actually deserve.</p>
@@ -548,7 +562,7 @@
             <label class="dropzone" id="dropzone">
                 <input type="file" name="file" id="file-input" accept="image/*" hidden required>
                 <div class="dz-content">
-                    <span class="dz-glyph">❋</span>
+                    <span class="dz-glyph">◆</span>
                     <span class="dz-text">Drop a photo or click to browse</span>
                     <span class="dz-hint">PNG · JPG · WEBP · GIF — max 5 MB</span>
                 </div>
@@ -575,7 +589,7 @@
         <section class="result" data-image="{{ uploaded_image }}">
             <div class="result-meta">
                 <span>Caption</span>
-                {% if source %}<span class="source-mark">❋ {{ source }}</span>{% endif %}
+                {% if source %}<span class="source-mark">◆ {{ source }}</span>{% endif %}
             </div>
 
             <textarea id="caption-text" class="caption-text" rows="3">{{ caption }}</textarea>
@@ -597,18 +611,6 @@
 
         {% endif %}
     </main>
-
-    <footer>
-        <div class="footer-row">
-            <a href="/about">About</a>
-            <span class="sep">·</span>
-            <a href="/updates">Updates</a>
-            <span class="sep">·</span>
-            <a href="/contact">Contact</a>
-            <span class="sep">·</span>
-            <a href="https://github.com/riyasatzaman/Capto-AI-Image-Captioning" target="_blank" rel="noopener">GitHub ↗</a>
-        </div>
-    </footer>
 
     <div class="toast-container"><div id="toast" class="toast-msg"></div></div>
 
@@ -766,7 +768,7 @@
                         captionEl.style.transition = 'opacity 0.4s ease';
                         requestAnimationFrame(() => { captionEl.style.opacity = '1'; });
                         const sourceMark = document.querySelector('.source-mark');
-                        if (sourceMark && data.source) sourceMark.textContent = '❋ ' + data.source;
+                        if (sourceMark && data.source) sourceMark.textContent = '◆ ' + data.source;
                     }
                 } catch {
                     toast('Network error. Try again.');

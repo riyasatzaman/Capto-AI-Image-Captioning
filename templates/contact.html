@@ -75,6 +75,24 @@
         }
         #theme-toggle:hover { border-color: var(--accent); background: var(--accent-tint); }
 
+        .primary-nav {
+            display: flex;
+            align-items: center;
+            gap: 1.4rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+        .primary-nav a {
+            color: var(--fg);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        .primary-nav a:hover { color: var(--accent); }
+        .primary-nav a.is-active { color: var(--accent); }
+
         /* main */
         main {
             flex: 1;
@@ -170,34 +188,21 @@
         }
         .field-value a:hover { border-bottom-color: var(--accent); }
 
-        /* footer */
-        footer {
-            margin-top: auto;
-            padding: 2.5rem 1.75rem 1.25rem;
-            text-align: center;
-            font-size: 0.7rem;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: var(--fg-soft);
-        }
-        footer .footer-row { display: flex; gap: 1rem; justify-content: center; align-items: center; flex-wrap: wrap; }
-        footer a { color: inherit; transition: color 0.2s ease; }
-        footer a:hover { color: var(--accent); }
-        footer a.is-active { color: var(--accent); }
-        footer .sep { opacity: 0.4; }
-
         /* responsive */
-        @media (max-width: 640px) {
+        @media (max-width: 760px) {
             .meta-bar {
                 grid-template-columns: 1fr auto;
                 grid-template-areas: "left right" "center center";
-                row-gap: 0.4rem;
+                row-gap: 0.7rem;
                 padding: 1rem 1.25rem;
                 font-size: 0.65rem;
             }
             .meta-bar .left { grid-area: left; }
-            .meta-bar .center { grid-area: center; }
+            .meta-bar .center { grid-area: center; justify-self: center; }
             .meta-bar .right { grid-area: right; }
+            .primary-nav { gap: 1rem; font-size: 0.65rem; flex-wrap: wrap; justify-content: center; }
+        }
+        @media (max-width: 640px) {
             main { padding: 1rem 1.25rem 1.5rem; }
             .contact-list li {
                 grid-template-columns: 1fr;
@@ -209,8 +214,14 @@
 </head>
 <body>
     <header class="meta-bar">
-        <span class="left"><a class="home-link" href="/"><span class="brand-mark">❋</span>Capto</a></span>
-        <span class="center">Contact</span>
+        <span class="left"><a class="home-link" href="/"><span class="brand-mark">◆</span>Capto</a></span>
+        <nav class="center primary-nav">
+            <a href="/">Captioner</a>
+            <a href="/about">About</a>
+            <a href="/updates">Updates</a>
+            <a class="is-active" href="/contact">Contact</a>
+            <a href="https://github.com/riyasatzaman/Capto-AI-Image-Captioning" target="_blank" rel="noopener">GitHub ↗</a>
+        </nav>
         <span class="right">
             <button id="theme-toggle" type="button" aria-label="Toggle theme">☀</button>
         </span>
@@ -239,18 +250,6 @@
             </li>
         </ul>
     </main>
-
-    <footer>
-        <div class="footer-row">
-            <a href="/about">About</a>
-            <span class="sep">·</span>
-            <a href="/updates">Updates</a>
-            <span class="sep">·</span>
-            <a class="is-active" href="/contact">Contact</a>
-            <span class="sep">·</span>
-            <a href="https://github.com/riyasatzaman/Capto-AI-Image-Captioning" target="_blank" rel="noopener">GitHub ↗</a>
-        </div>
-    </footer>
 
     <script>
         (function () {
