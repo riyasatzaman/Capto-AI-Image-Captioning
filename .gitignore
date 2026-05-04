@@ -1,27 +1,36 @@
-# Ignore virtual environment
+# Virtual environments
 venv/
+.venv/
+env/
 
-# Ignore system files
+# System
 .DS_Store
 Thumbs.db
 
-# Ignore Python cache files
+# Python
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
+*.egg-info/
+.pytest_cache/
 
-# Ignore logs and temp files
+# Logs / temp
 *.log
 *.tmp
 
-# Ignore IDE-specific files
+# IDE
 .vscode/
 .idea/
 *.swp
 
-# Ignore Jupyter Notebook checkpoints (if using Jupyter)
+# Jupyter
 .ipynb_checkpoints/
 
-# Ignore environment variables or secret files (if applicable)
+# Environment / secrets
 .env
+.env.local
+
+# Uploaded files (ephemeral; tracked dir kept via .gitkeep)
+static/uploads/*
+!static/uploads/.gitkeep

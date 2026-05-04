@@ -1,0 +1,6 @@
+# Local development extras: install BLIP locally so you can run without an HF token.
+# Heavy (~2 GB). Skip on free hosting tiers.
+-r requirements.txt
+torch==2.6.0
+torchvision==0.21.0
+transformers==4.49.0
