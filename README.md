@@ -4,7 +4,7 @@ Capto is a Flask web app that turns any image into a social-media-ready caption.
 
 It's built around a **vision-language model** (Qwen3-VL by default) served via Hugging Face's Inference Providers router, with a local BLIP fallback for offline development and a friendly stub fallback so the app never crashes.
 
-- **Live demo:** [capto.onrender.com](https://your-service-name.onrender.com)
+- **Live demo:** [capto-ai-image-captioning-app.onrender.com](https://capto-ai-image-captioning-app.onrender.com/)
 - **Repo:** https://github.com/riyasatzaman/Capto-AI-Image-Captioning
 
 ## Features
