@@ -1,0 +1,24 @@
+name: Keep Capto warm
+
+# Pings the live Render service every 10 minutes so the dyno never sleeps.
+# Render free tier spins down after 15 min of inactivity, causing ~20s cold starts
+# on the next request. A 10-minute heartbeat stays under that threshold.
+#
+# Compute math: 24h * 30d = 720 wall-clock hours / month, well under Render's
+# 750 free hours. The pinged endpoint (/healthz) returns immediately and doesn't
+# call any external APIs, so the dyno cost per ping is negligible.
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Ping /healthz
+        run: |
+          curl -fsS --max-time 60 \
+            https://capto-ai-image-captioning-app.onrender.com/healthz
