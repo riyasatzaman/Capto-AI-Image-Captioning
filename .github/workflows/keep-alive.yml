@@ -20,5 +20,9 @@ jobs:
     steps:
       - name: Ping /healthz
         run: |
-          curl -fsS --max-time 60 \
+          # 90s timeout — Render cold-start can exceed 60s on first wake.
+          # Once the dyno is warm, subsequent pings return in <500ms. If a
+          # cold ping does time out, the next scheduled run (10 min later)
+          # will succeed once Render has fully woken the dyno.
+          curl -fsS --max-time 90 \
             https://capto-ai-image-captioning-app.onrender.com/healthz
